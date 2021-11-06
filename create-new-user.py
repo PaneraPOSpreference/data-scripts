@@ -1,17 +1,22 @@
 import qrcode
-qr = qrcode.QRCode(
+import string
+import random
+
+def newQR():
+    qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_H,
         box_size=10,
         border=1, )
-def newQR():
-    for i in range(1,5):
-        userID = str(i)
-        qr.add_data(userID)
-        qr.make(fit=True)
-        img = qr.make_image(fill_color=('#3C1C00'))
-        img.save('userCode' + userID + '.png')
-        img.show()
-        print('\nNew Code Generated')
-    
-newQR()
+    userKeys = string.ascii_uppercase
+    userKey = (''.join(random.choice(userKeys) for x in range(10)))
+    print('\n' + userKey)
+    qr.add_data(userKey)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color=('black'))
+    img.save('userCode' + str(i) + '.png')
+    # img.show()
+    print('\nNew Code Generated')
+
+for i in range(1,7):       
+    newQR()
