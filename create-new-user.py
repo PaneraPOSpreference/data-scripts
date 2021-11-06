@@ -1,21 +1,15 @@
 import qrcode
-from PIL import Image
-
-def newQR():
-    for i in range(1,5):
-        userID = str(i)
-        
-        qr = qrcode.QRCode(
+qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_H,
         box_size=10,
         border=1, )
-
+def newQR():
+    for i in range(1,5):
+        userID = str(i)
         qr.add_data(userID)
-        logo = Image.open('paneraLogo.png')
-        img = qr.make_image().convert('RGB')
-        pos = ((img.size[0] - logo.size[0]) // 2, (img.size[1] - logo.size[1]) // 2)
-        img.paste(logo, pos)
+        qr.make(fit=True)
+        img = qr.make_image(fill_color=('#3C1C00'))
         img.save('userCode' + userID + '.png')
         img.show()
         print('\nNew Code Generated')

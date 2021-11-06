@@ -5,6 +5,6 @@ for i in range(1,5):
     myqr.run(words = userID,
     version = 6,
     picture = 'paneraLogo.png',
-    colorized = True,
+    colorized = False,
     save_name = 'userIDcode' + userID + '.png')
     print('\nAdded New Code')
