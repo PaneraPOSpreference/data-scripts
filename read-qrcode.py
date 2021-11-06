@@ -5,7 +5,7 @@ from pyzbar.pyzbar import decode
 
 
 userdict ={
-    0 : "Frank",
+    0 : "Josh",
     1 : "John",
     2 : "Mary",
     3 : "Bob"
