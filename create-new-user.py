@@ -37,13 +37,6 @@ def newQR():
     # check codes look okay, opens each in new window
     img.show()
     print('\nNew Code Generated')
-
-
-# in order to create 6 different QR codes without new data on top of old, 
-# ending with our last QR code holding all 6 user id values we can merely call 
-# our newQR() function in a for loop with range(1,7) and create 6 codes with their own userKey.
-# for i in range(1,7):       
+      
 newQR()
 
-# if __name__ == '__main__':
-    # app.run(host='')
