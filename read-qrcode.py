@@ -4,8 +4,6 @@ import pyzbar.pyzbar as pyzbar
 from pyzbar.pyzbar import decode
 import requests
 
-# from waiting import wait
-
 # takes the endpoint from our database in order to send our userIDs
 USER_ENDPOINT = 'https://breadpass.vercel.app/api/user'
 
@@ -40,19 +38,11 @@ def decoder(image):
     
         #this will save our barcodeData as an object which we need in order to send in correct format
         idDict = {'userId' : barcodeData}
-    
-        for barcodeData in idList:
-            string = 'CODE ALREADY USED'
-            cv2.putText(frame, string,(x,y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8,(255,0,0), 2)
-            continue
-
+            
         r = requests.post(USER_ENDPOINT, data = idDict)
         data = r.json()
         print(data)
 
-    # so that our computer isn't getting bogged down and our server isn't getting slammed with requests
-    # we can use the time library and call time.sleep() to delay execution for 5 seconds
-    
 cap = cv2.VideoCapture(0)
 while True:
     ret, frame = cap.read()
