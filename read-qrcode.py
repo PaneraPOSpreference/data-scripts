@@ -3,6 +3,7 @@ import numpy as np
 import pyzbar.pyzbar as pyzbar
 from pyzbar.pyzbar import decode
 import requests
+import time
 
 # takes the endpoint from our database in order to send our userIDs
 USER_ENDPOINT = 'https://breadpass.vercel.app/api/user'
@@ -42,6 +43,7 @@ def decoder(image):
         r = requests.post(USER_ENDPOINT, data = idDict)
         data = r.json()
         print(data)
+        time.sleep(5)
 
 cap = cv2.VideoCapture(0)
 while True:
