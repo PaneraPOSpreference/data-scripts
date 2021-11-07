@@ -3,9 +3,6 @@ import string
 import random
 from flask import Flask
 
-# app = Flask(__name__)
-# @app.route('https://breadpass.vercel.app/api/user')
-
 # function to create new code using qrcode library
 # https://pypi.org/project/qrcode/
 def newQR():
