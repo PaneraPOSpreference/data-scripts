@@ -46,12 +46,9 @@ def decoder(image):
             cv2.putText(frame, string,(x,y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8,(255,0,0), 2)
             continue
 
-        def sendReq():
-            r = requests.post(USER_ENDPOINT, data = idDict)
-            data = r.json()
-            print(data)
-        
-        sendReq()
+        r = requests.post(USER_ENDPOINT, data = idDict)
+        data = r.json()
+        print(data)
 
     # so that our computer isn't getting bogged down and our server isn't getting slammed with requests
     # we can use the time library and call time.sleep() to delay execution for 5 seconds
