@@ -3,6 +3,7 @@ import numpy as np
 import pyzbar.pyzbar as pyzbar
 from pyzbar.pyzbar import decode
 import requests
+
 # from waiting import wait
 
 # takes the endpoint from our database in order to send our userIDs
@@ -16,14 +17,11 @@ USER_ENDPOINT = 'https://breadpass.vercel.app/api/user'
 
 # setting previousID to empty string, this will be used to check if code is same as previous code
 # and if it is same code request will not be resent
-
 def decoder(image):
     gray_img = cv2.cvtColor(image,0)
     barcode = decode(gray_img)
-
-    
-
-    # this will then draw the barcode and set the decoded data to variable barcodeData
+   
+# this will then draw the barcode and set the decoded data to variable barcodeData
     for obj in barcode:
         points = obj.polygon
         (x,y,w,h) = obj.rect
@@ -31,32 +29,33 @@ def decoder(image):
         pts = pts.reshape((-1, 1, 2))
         cv2.polylines(image, [pts], True, (0, 255, 0), 3)
         barcodeData = obj.data.decode("utf-8")
-        
+    
         idList = []
-        print(barcodeData)
         idList += [barcodeData]
-        print(idList)
 
         string = 'USERID: ' + barcodeData
 
         # for demo purposes we will also print the data decoded from our image directly above the code
         cv2.putText(frame, string, (x,y), cv2.FONT_HERSHEY_SIMPLEX,0.8,(255,0,0), 2)
-        
-        
+    
         #this will save our barcodeData as an object which we need in order to send in correct format
         idDict = {'userId' : barcodeData}
-        
-       # this will send the request to our database via post
-       #  r = requests.post(USER_ENDPOINT, data = idDict)
-       # data = r.json()
-       # print(data)
+    
         for barcodeData in idList:
             string = 'CODE ALREADY USED'
-            cv2.putText(frame, string,(x,y - 25), cv2.FONT_HERSHEY_SIMPLEX, 0.8,(255,0,0), 2)
-        continue
-        # so that our computer isn't getting bogged down and our server isn't getting slammed with requests
-        # we can use the time library and call time.sleep() to delay execution for 5 seconds
+            cv2.putText(frame, string,(x,y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8,(255,0,0), 2)
+            continue
+
+        def sendReq():
+            r = requests.post(USER_ENDPOINT, data = idDict)
+            data = r.json()
+            print(data)
         
+        sendReq()
+
+    # so that our computer isn't getting bogged down and our server isn't getting slammed with requests
+    # we can use the time library and call time.sleep() to delay execution for 5 seconds
+    
 cap = cv2.VideoCapture(0)
 while True:
     ret, frame = cap.read()
@@ -65,3 +64,4 @@ while True:
     code = cv2.waitKey(10)
     if code == ord('q'):
         break
+

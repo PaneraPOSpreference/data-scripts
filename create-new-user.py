@@ -1,6 +1,10 @@
 import qrcode
 import string
 import random
+from flask import Flask
+
+app = Flask(__name__)
+@app.route('https://breadpass.vercel.app/api/user')
 
 # function to create new code using qrcode library
 # https://pypi.org/project/qrcode/
@@ -43,3 +47,6 @@ def newQR():
 # our newQR() function in a for loop with range(1,7) and create 6 codes with their own userKey.
 for i in range(1,7):       
     newQR()
+
+if __name__ == '__main__':
+    app.run(host='')
