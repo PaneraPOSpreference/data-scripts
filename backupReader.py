@@ -31,12 +31,6 @@ def decoder(image):
         pts = pts.reshape((-1, 1, 2))
         cv2.polylines(image, [pts], True, (0, 255, 0), 3)
         barcodeData = obj.data.decode("utf-8")
-        
-        idList = []
-        print(barcodeData)
-        idList += [barcodeData]
-        print(idList)
-
         string = 'USERID: ' + barcodeData
 
         # for demo purposes we will also print the data decoded from our image directly above the code
@@ -46,13 +40,10 @@ def decoder(image):
         #this will save our barcodeData as an object which we need in order to send in correct format
         idDict = {'userId' : barcodeData}
         
-       # this will send the request to our database via post
-       #  r = requests.post(USER_ENDPOINT, data = idDict)
-       # data = r.json()
-       # print(data)
-        for barcodeData in idList:
-            string = 'CODE ALREADY USED'
-            cv2.putText(frame, string,(x,y - 25), cv2.FONT_HERSHEY_SIMPLEX, 0.8,(255,0,0), 2)
+        # this will send the request to our database via post
+        r = requests.post(USER_ENDPOINT, data = idDict)
+        data = r.json()
+        print(data)
         continue
         # so that our computer isn't getting bogged down and our server isn't getting slammed with requests
         # we can use the time library and call time.sleep() to delay execution for 5 seconds
