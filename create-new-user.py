@@ -3,8 +3,8 @@ import string
 import random
 from flask import Flask
 
-app = Flask(__name__)
-@app.route('https://breadpass.vercel.app/api/user')
+# app = Flask(__name__)
+# @app.route('https://breadpass.vercel.app/api/user')
 
 # function to create new code using qrcode library
 # https://pypi.org/project/qrcode/
@@ -35,7 +35,7 @@ def newQR():
     img = qr.make_image(fill_color=('black'))
     
     # saves each qr code in the current directory with file name corresponding to range provided in for loop
-    img.save('userCode' + str(i) + '.png')
+    img.save('userCode' + userKey + '.png')
     
     # check codes look okay, opens each in new window
     img.show()
@@ -45,8 +45,8 @@ def newQR():
 # in order to create 6 different QR codes without new data on top of old, 
 # ending with our last QR code holding all 6 user id values we can merely call 
 # our newQR() function in a for loop with range(1,7) and create 6 codes with their own userKey.
-for i in range(1,7):       
-    newQR()
+# for i in range(1,7):       
+newQR()
 
-if __name__ == '__main__':
-    app.run(host='')
+# if __name__ == '__main__':
+    # app.run(host='')
